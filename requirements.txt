@@ -1,0 +1,8 @@
+Flask
+flask-cors
+scikit-learn
+numpy
+pandas
+gunicorn
+Werkzeug
+click
