@@ -111,7 +111,7 @@ class EyeTrackingSimulator {
    */
   private async sendDataToBackend(data: any): Promise<void> {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${this.API_ENDPOINT}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://cognitive-fatigue-detection.onrender.com'}${this.API_ENDPOINT}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
