@@ -1,19 +1,13 @@
 # Backend dependencies
-<<<<<<< HEAD
+
 Flask
 scikit-learn
 numpy
 pandas
 gunicorn
 flask-cors
-
 # Production dependencies
 Werkzeug
 click
-=======
-Flask
-Flask_cors
-scikit-learn
-numpy
-pandas
->>>>>>> 104a5b246968d13aa0b2d69df4316c1927d33157
+
+
