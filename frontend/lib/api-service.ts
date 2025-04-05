@@ -29,7 +29,7 @@ interface FatigueData {
 }
 
 class ApiService {
-  private baseUrl: string = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+  private baseUrl: string = process.env.NEXT_PUBLIC_API_URL || 'https://cognitive-fatigue-detection.onrender.com';
   private isBackendDown: boolean = false;
   private lastErrorTime: number = 0;
   private readonly ERROR_COOLDOWN: number = 10000; // 10 seconds between logged errors
