@@ -1,4 +1,5 @@
 # Backend dependencies
+<<<<<<< HEAD
 Flask==2.1.3
 scikit-learn==1.2.2
 numpy==1.24.2
@@ -9,3 +10,10 @@ flask-cors==4.0.0
 # Production dependencies
 Werkzeug==2.3.7
 click==8.1.7
+=======
+Flask
+Flask_cors
+scikit-learn
+numpy
+pandas
+>>>>>>> 104a5b246968d13aa0b2d69df4316c1927d33157
