@@ -10,7 +10,8 @@ app = Flask(__name__)
 allowed_origins = [
     "http://localhost:3000",  # Development
     "https://cognifatigue-detection-2n0r43gt9-js0326s-projects.vercel.app",  # Production - Update this with your frontend URL
-    "https://cognifatigue.vercel.app/",
+    "https://cognifatigue.vercel.app"  # Latest Vercel deployment
+
 ]
 
 CORS(app, resources={
