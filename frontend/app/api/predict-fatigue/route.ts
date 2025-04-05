@@ -51,7 +51,7 @@ export async function POST(request: Request) {
 
     // Send features to Flask backend for prediction
     try {
-      const flaskResponse = await fetch("http://localhost:5000/predict", {
+      const flaskResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://cognitive-fatigue-detection.onrender.com'}/predict`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
