@@ -95,7 +95,7 @@ export async function getFatiguePrediction() {
     console.log("Extracted features for prediction:", features)
     
     // Use the Flask backend URL
-    const apiUrl = "http://localhost:5000/predict"
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || 'https://cognitive-fatigue-detection.onrender.com'}/predict`
     console.log("Fetching fatigue prediction from:", apiUrl)
     
     const response = await fetch(apiUrl, {
