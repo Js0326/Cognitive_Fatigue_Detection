@@ -9,7 +9,7 @@ app = Flask(__name__)
 # Configure CORS for both development and production
 allowed_origins = [
     "http://localhost:3000",  # Development
-    "https://cfd-ml-beta.vercel.app",  # Production - Update this with your frontend URL
+    "cognifatigue-detection-2n0r43gt9-js0326s-projects.vercel.app",  # Production - Update this with your frontend URL
 ]
 
 CORS(app, resources={
