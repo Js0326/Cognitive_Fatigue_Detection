@@ -34,7 +34,12 @@ export default function LoginPage() {
       if (success) {
         router.push("/dashboard")
       } else {
-        setError("Failed to login. Please check your credentials and try again.")
+        // Check if user is in verification state
+        if (useAuth.getState().isVerifying) {
+          router.push("/verification")
+        } else {
+          setError("Failed to login. Please check your credentials and try again.")
+        }
       }
     } catch (err) {
       setError("An unexpected error occurred. Please try again.")

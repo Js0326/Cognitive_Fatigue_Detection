@@ -113,10 +113,29 @@ export function TestResultsPanel({ testResults }: TestResultsPanelProps) {
                          (testType === "eye-tracking" && value > 15) || 
                          (testType === "math" && value > 5) // Response time over 5s is slow
 
-    // Simulated previous value (in a real app, this would come from historical data)
-    const previousValue = value * (0.9 + Math.random() * 0.2) // Random variation of ±10%
+    // Check for perfect scores in tests where higher is better
+    if (!isLowerBetter && value === 100) {
+      return {
+        icon: <ArrowUpRight className="h-4 w-4 text-green-500" />,
+        color: "text-green-500",
+        label: "Perfect",
+      }
+    }
+    
+    // Check for excellent scores in reaction time (lower is better)
+    if (isLowerBetter && testType === "reaction" && value < 200) {
+      return {
+        icon: <ArrowUpRight className="h-4 w-4 text-green-500" />,
+        color: "text-green-500",
+        label: "Excellent",
+      }
+    }
 
-    if (Math.abs(value - previousValue) < value * 0.05) {
+    // Simulated previous value (in a real app, this would come from historical data)
+    // Using a more stable simulation to avoid random declines for good scores
+    const previousValue = value * 0.95; // Consistently show improvement for higher scores
+
+    if (Math.abs(value - previousValue) < value * 0.03) {
       return {
         icon: <Minus className="h-4 w-4 text-gray-500" />,
         color: "text-gray-500",

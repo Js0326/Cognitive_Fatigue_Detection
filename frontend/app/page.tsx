@@ -1,9 +1,14 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
 import { ArrowRight, Brain, Eye, LineChart, Shield } from "lucide-react"
+import { useAuth } from "@/lib/auth"
 
 export default function Home() {
+  const { isAuthenticated } = useAuth()
+
   return (
     <div className="container mx-auto space-y-12 py-8 px-4">
       <section className="space-y-4 text-center">
@@ -12,14 +17,29 @@ export default function Home() {
           Advanced monitoring and detection of cognitive fatigue using behavioral patterns and eye movement tracking
         </p>
         <div className="flex justify-center gap-4 pt-4">
-          <Button asChild size="lg">
-            <Link href="/dashboard">
-              Get Started <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-          <Button variant="outline" size="lg" asChild>
-            <Link href="/tests">Try Tests</Link>
-          </Button>
+          {isAuthenticated ? (
+            <>
+              <Button asChild size="lg">
+                <Link href="/dashboard">
+                  Dashboard <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <Link href="/tests">Try Tests</Link>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button asChild size="lg">
+                <Link href="/login">
+                  Get Started <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <Link href="/signup">Sign Up</Link>
+              </Button>
+            </>
+          )}
         </div>
       </section>
 

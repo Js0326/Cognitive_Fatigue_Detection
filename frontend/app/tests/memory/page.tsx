@@ -81,18 +81,21 @@ export default function MemoryTestPage() {
   // Check the user's answer
   const checkAnswer = () => {
     const isCorrect = userInput === sequence
-
+    
+    // Update correct sequences count if answer is correct
+    let updatedCorrectSequences = correctSequences
     if (isCorrect) {
-      setCorrectSequences((prev) => prev + 1)
+      updatedCorrectSequences = correctSequences + 1
+      setCorrectSequences(updatedCorrectSequences)
       setLongestCorrectSequence((prev) => Math.max(prev, sequence.length))
     }
 
     if (currentRound >= totalRounds) {
       // End of test
-      const accuracy = Math.round((correctSequences / totalRounds) * 100)
+      const accuracy = Math.round((updatedCorrectSequences / totalRounds) * 100)
 
       setResults({
-        correctSequences,
+        correctSequences: updatedCorrectSequences,
         totalSequences: totalRounds,
         accuracy,
         longestSequence: longestCorrectSequence,

@@ -121,7 +121,8 @@ export default function MathTestPage() {
     const responseTime = now - lastProblemTime
     setResponseTimes((prev) => [...prev, responseTime])
 
-    const isCorrect = Number.parseInt(userAnswer) === currentProblem.answer
+    // Fixed: Ensure proper comparison by parsing both values as integers
+    const isCorrect = Number(userAnswer) === currentProblem.answer
     if (isCorrect) {
       setCorrectAnswers((prev) => prev + 1)
     }
@@ -140,7 +141,12 @@ export default function MathTestPage() {
 
   // End the test and calculate results
   const endTest = () => {
-    const accuracy = Math.round((correctAnswers / Math.min(currentIndex + 1, totalProblems)) * 100)
+    // Calculate accuracy based on the number of correct answers out of total problems attempted
+    const problemsAttempted = currentIndex + 1
+    
+    // Calculate accuracy as the percentage of correct answers out of problems attempted
+    const accuracy = Math.round((correctAnswers / problemsAttempted) * 100)
+    
     const avgResponseTime =
       responseTimes.length > 0
         ? Math.round(responseTimes.reduce((sum, time) => sum + time, 0) / responseTimes.length / 1000)
@@ -148,7 +154,7 @@ export default function MathTestPage() {
 
     setResults({
       correctAnswers,
-      totalProblems: currentIndex + 1,
+      totalProblems: problemsAttempted,
       accuracy,
       averageResponseTime: avgResponseTime,
     })

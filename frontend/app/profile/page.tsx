@@ -1,3 +1,5 @@
+"use client"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -5,8 +7,52 @@ import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
+import { useState } from "react"
+import { deleteUserData } from "@/lib/test-utils"
+import { toast } from "@/components/ui/use-toast"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default function ProfilePage() {
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  const handleDeleteData = async () => {
+    setIsDeleting(true)
+    try {
+      const success = await deleteUserData()
+      if (success) {
+        toast({
+          title: "Data deleted",
+          description: "All your test data has been successfully deleted.",
+        })
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to delete data. Please try again.",
+          variant: "destructive",
+        })
+      }
+    } catch (error) {
+      console.error("Error deleting data:", error)
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsDeleting(false)
+    }
+  }
+
   return (
     <div className="space-y-6 w-full">
       <div>
@@ -120,7 +166,36 @@ export default function ProfilePage() {
         <Button variant="outline" asChild>
           <Link href="/settings">Go to Settings</Link>
         </Button>
-        <Button variant="destructive">Delete Account</Button>
+        <div className="space-x-4">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="outline" className="bg-orange-50 text-orange-600 hover:bg-orange-100 hover:text-orange-700 border-orange-200">
+                Delete My Data
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete Your Data</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action will permanently delete all your test results and fatigue prediction data. 
+                  This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction 
+                  onClick={handleDeleteData} 
+                  disabled={isDeleting}
+                  className="bg-orange-600 text-white hover:bg-orange-700"
+                >
+                  {isDeleting ? "Deleting..." : "Delete Data"}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+          
+          <Button variant="destructive">Delete Account</Button>
+        </div>
       </div>
     </div>
   )

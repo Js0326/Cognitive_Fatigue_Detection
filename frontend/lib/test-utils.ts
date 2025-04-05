@@ -128,3 +128,25 @@ export async function getFatiguePrediction() {
     return null
   }
 }
+
+// Delete all user test data from localStorage
+export async function deleteUserData() {
+  try {
+    const { user } = useAuth.getState()
+
+    if (!user) {
+      console.error("User not authenticated")
+      return false
+    }
+
+    // Remove test results from localStorage
+    localStorage.removeItem('testResults')
+    
+    console.log("User data deleted successfully")
+    return true
+  } catch (error) {
+    console.error("Error deleting user data:", error)
+    return false
+  }
+}
+

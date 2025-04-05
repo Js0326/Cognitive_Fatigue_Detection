@@ -176,7 +176,7 @@ export default function Dashboard() {
           <AlertTitle>No Test Data Available</AlertTitle>
           <AlertDescription>
             You haven't completed any tests yet.{" "}
-            <Link href="/tests" className="font-medium underline">
+            <Link href="/tests" className="font-medium underline text-blue-500">
               Take a test
             </Link>{" "}
             to start monitoring your cognitive fatigue.

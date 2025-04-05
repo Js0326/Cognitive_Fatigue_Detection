@@ -49,7 +49,12 @@ export default function SignupPage() {
       const success = await signup(name, email, password)
 
       if (success) {
-        router.push("/dashboard")
+        // Check if user is in verification state
+        if (useAuth.getState().isVerifying) {
+          router.push("/verification")
+        } else {
+          router.push("/dashboard")
+        }
       } else {
         setError("Failed to create account. Please try again.")
       }

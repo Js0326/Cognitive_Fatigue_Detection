@@ -6,9 +6,15 @@ import joblib
 import os
 
 app = Flask(__name__)
+# Configure CORS for both development and production
+allowed_origins = [
+    "http://localhost:3000",  # Development
+    "https://cfd-ml-beta.vercel.app",  # Production - Update this with your frontend URL
+]
+
 CORS(app, resources={
     r"/*": {
-        "origins": ["http://localhost:3000"],
+        "origins": allowed_origins,
         "methods": ["GET", "POST", "OPTIONS"],
         "allow_headers": ["Content-Type", "Accept"]
     }
@@ -67,4 +73,7 @@ def predict_fatigue():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Use production config when deployed, development config when local
+    debug_mode = os.environ.get("FLASK_ENV") == "development"
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=debug_mode, host='0.0.0.0', port=port)

@@ -68,24 +68,31 @@ export default function TypingTestPage() {
   // Calculate typing metrics and end the test
   const endTest = () => {
     const endTime = Date.now()
-    const timeElapsed = (endTime - startTime) / 1000 / 60 // in minutes
+    const timeElapsed = (endTime - startTime) / 1000 // in seconds
 
-    // Calculate words per minute (WPM)
-    const words = typedText.trim().split(/\s+/).length
-    const wpm = Math.round(words / timeElapsed)
+    // Split text into words for comparison
+    const expectedWords = textToType.trim().split(/\s+/)
+    const typedWords = typedText.trim().split(/\s+/)
 
-    // Calculate accuracy
-    let correctChars = 0
-    const minLength = Math.min(typedText.length, textToType.length)
+    let correctWords = 0
+    let errors = 0
 
-    for (let i = 0; i < minLength; i++) {
-      if (typedText[i] === textToType[i]) {
-        correctChars++
+    // Compare only up to the number of typed words
+    for (let i = 0; i < typedWords.length; i++) {
+      if (i < expectedWords.length && typedWords[i] === expectedWords[i]) {
+        correctWords++
+      } else {
+        errors++
       }
     }
 
-    const accuracy = Math.round((correctChars / textToType.length) * 100)
-    const errors = typedText.length - correctChars
+    // Calculate accuracy based on typed words
+    const accuracy = typedWords.length > 0
+      ? Math.round((correctWords / typedWords.length) * 100)
+      : 0
+
+    // Calculate WPM: (total words typed / time in minutes)
+    const wpm = Math.round((typedWords.length / (timeElapsed / 60)))
 
     setResults({
       wpm,
