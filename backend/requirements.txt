@@ -1,5 +1,3 @@
-# Backend dependencies
-
 Flask
 scikit-learn
 numpy
