@@ -4,7 +4,6 @@ numpy
 pandas
 gunicorn
 flask-cors
-# Production dependencies
 Werkzeug
 click
 
