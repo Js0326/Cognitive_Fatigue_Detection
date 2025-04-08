@@ -9,7 +9,10 @@ app = Flask(__name__)
 # Configure CORS for both development and production
 allowed_origins = [
     "http://localhost:3000",  # Development
-    "https://cfd-ml-beta.vercel.app",  # Production - Update this with your frontend URL
+    "https://cfd-ml-beta.vercel.app",  # Production
+    "https://cognitive-fatigue-detection.vercel.app",  # Additional production URL
+    "https://cognifatigue-detection-2n0r43gt9-js0326s-projects.vercel.app",  # New Vercel deployment
+    "https://cognifatigue.vercel.app"  # Latest Vercel deployment
 ]
 
 CORS(app, resources={
@@ -71,6 +74,14 @@ def predict_fatigue():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route("/terms", methods=["GET"])
+def terms_and_conditions():
+    terms = {
+        "title": "Terms and Conditions",
+        "content": "By using this application, you agree to the terms and conditions outlined here."
+    }
+    return jsonify(terms)
 
 if __name__ == "__main__":
     # Use production config when deployed, development config when local
