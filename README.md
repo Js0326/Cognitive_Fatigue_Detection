@@ -112,3 +112,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 - Machine learning model development.
 - UI/UX design inspiration from modern web applications.
 - Libraries and frameworks used: Next.js, Tailwind CSS, Python, and more.
+
+## Upcoming Features
+
+- **Google Login via OAuth**: We are working on integrating Google login functionality using OAuth to provide a seamless and secure authentication experience for users. Stay tuned for this feature in future updates!
